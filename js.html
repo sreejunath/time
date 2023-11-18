@@ -202,16 +202,23 @@
   updateSelectedCountry();
 setInterval(updateAllClocks, 1000);
 
-function hicode(){
-  let p = document.createElement("p");
-  let lin = document.createElement("a");
-  lin.href = "https://wa.link/wl7qi9";
-  lin.textContent = "Join Now";
-  p.innerText = "Hi coders, the free and top-notch WhatsApp group, has been my go-to platform for learning coding.";
-  let space = document.getElementById("contents");
-  space.appendChild(p);
-  space.appendChild(lin);
+   function hicode() {
+    let space = document.getElementById("contents");
+    let existingParagraph = space.querySelector("p");
+    let existingLink = space.querySelector("a");
 
+    if (existingParagraph && existingLink) {
+        existingParagraph.remove();
+        existingLink.remove();
+    } else {
+        let p = document.createElement("p");
+        p.textContent = "Hicoders, the free and top-notch WhatsApp group, has been my go-to platform for learning coding.";
+        let lin = document.createElement("a");
+        lin.href = "https://wa.link/wl7qi9";
+        lin.textContent = "Join Now";
+        space.appendChild(p);
+        space.appendChild(lin);
+    }
 }
 </script>
 
