@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #1a1a1a;
+      background-image: url(/bgtym.jpg);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      color: #ffffff;
+    }
+    #contents{
+      transition: 2s;
+    }
+
+    header {
+      background-color: #100e0e91;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #01f4f1;
+    }
+
+    label{
+      font-size: 16px;
+      margin: 10px;
+      padding: 8px;
+      background-color: #10f9f973;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+    button {
+    background-color: #c4c4c473;
+    font-size: 16px;
+    height: 43px;
+    width: 131px;
+    border-radius: 25px;
+    border: none;
+    color: white;
+  }
+  button:hover {
+    background-color: #10f9f973;
+    font-size: 16px;
+    font-weight: bold;
+    height: 43px;
+    width: 131px;
+    border-radius: 25px;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+
+    select {
+      font-size: 16px;
+      margin: 10px;
+      padding: 8px;
+      border-radius: 4px;
+    }
+
+    .clock-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .clock {
+      margin: 10px;
+      padding: 20px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+      background-color: #00000091;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .clock-container {
+        flex-direction: column;
+      }
+    }
+  .hicoders{
+      text-align: center;
+    }
+  .hicoders p {
+      margin-left: 50px;
+      margin-right: 50px;
+      font-weight: bold;
+      font-size: 1rem;
+      color: rgb(244 228 11);
+    }
+  .hicoders a{
+    text-decoration: none;
+    color: rgb(244 228 11);
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  </style>
+  <title>World Clock</title>
+</head>
+<body>
+
+<header>
+  <h1>World Clock By Hi Coders</h1>
+  <label for="countrySelect">Select Country: </label>
+  <select id="countrySelect">
+    <option value="Asia/Kolkata">India</option>
+    <option value="America/New_York">USA</option>
+    <option value="Europe/Moscow">Russia</option>
+    <option value="Asia/Shanghai">China</option>
+    <option value="Australia/Sydney">Australia</option>
+    <option value="Europe/Malta">Malta</option>
+  </select>
+  <button onclick="updateSelectedCountry()">Show Time</button>
+</header>
+
+<div class="clock-container" id="clockContainer"></div>
+<div id="contents" class="hicoders">
+  <button onclick="hicode()">How I Learned Coding</button>
+</div>
+
+<script>
+  function updateClock(timezone, elementId) {
+    const options = { timeZone: timezone, hour12: true, hour: 'numeric', minute: 'numeric', second: 'numeric' };
+    const formattedTime = new Date().toLocaleTimeString('en-US', options);
+    document.getElementById(elementId).innerText = formattedTime;
+  }
+
+  function setupClock(city, timezone) {
+    const clockDiv = document.createElement('div');
+    clockDiv.className = 'clock';
+    clockDiv.innerHTML = '<h2>' + city + '</h2><p id="' + city.replace(/\s+/g, '-') + '">Loading...</p>';
+    document.getElementById('clockContainer').appendChild(clockDiv);
+  }
+
+  function updateSelectedCountry() {
+    const selectedCountry = document.getElementById('countrySelect').value;
+    const selectedCity = countries.find(country => country.timezone === selectedCountry).city;
+    const selectedCityId = selectedCity.replace(/\s+/g, '-');
+
+   
+    document.querySelectorAll('.clock').forEach(clock => {
+      clock.style.display = 'none';
+    });
+
+    const selectedClock = document.getElementById(selectedCityId);
+    if (selectedClock) {
+      selectedClock.parentElement.style.display = 'block';
+      updateClock(selectedCountry, selectedCityId);
+    }
+  }
+
+  function updateAllClocks() {
+    countries.forEach(country => {
+      const cityId = country.city.replace(/\s+/g, '-');
+      updateClock(country.timezone, cityId);
+    });
+  }
+
+ 
+  const countries = [
+    { city: 'India', timezone: 'Asia/Kolkata' },
+    { city: 'USA', timezone: 'America/New_York' },
+    { city: 'Russia', timezone: 'Europe/Moscow' },
+    { city: 'China', timezone: 'Asia/Shanghai' },
+    { city: 'Australia', timezone: 'Australia/Sydney' },
+    { city: 'Malta', timezone: 'Europe/Malta' }
+  ];
+
+
+  countries.forEach(function(country) {
+    setupClock(country.city, country.timezone);
+  });
+
+  updateSelectedCountry();
+setInterval(updateAllClocks, 1000);
+
+function hicode(){
+  let p = document.createElement("p");
+  let lin = document.createElement("a");
+  lin.href = "https://wa.link/wl7qi9";
+  lin.textContent = "Join Now";
+  p.innerText = "Hicoders, the free and top-notch WhatsApp group, has been my go-to platform for learning coding.";
+  let space = document.getElementById("contents");
+  space.appendChild(p);
+  space.appendChild(lin);
+
+}
+</script>
+
+</body>
+</html>
